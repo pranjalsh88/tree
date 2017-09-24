@@ -1,8 +1,6 @@
 package com.pranjsha.cisco;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Tree{
 
@@ -48,6 +46,10 @@ public class Tree{
             printTreeInorder(root);
         if(order.startsWith("post"))
             printTreePostorder(root);
+        if(order.startsWith("level"))
+            printLevelOrderTraversal(root);
+        if(order.startsWith("zig"))
+            printZigZagOrderTraversal(root);
 
     }
     public void printTreePreorder(TreeNode root) {
@@ -100,6 +102,56 @@ public class Tree{
             list.add(s2.pop().getVal());
         System.out.println(list);
 
+    }
+    public void printLevelOrderTraversal(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        TreeNode cur = root;
+        q.offer(cur);
+        while(!q.isEmpty()) {
+            List<Integer> sublist = new ArrayList<>();
+            int level = q.size();
+
+            for (int i = 1; i <= level; i++) {
+                if (q.peek().getLeft() != null)
+                    q.offer(q.peek().getLeft());
+                if (q.peek().getRight() != null)
+                    q.offer(q.peek().getRight());
+                sublist.add(q.poll().getVal());
+            }
+            list.add(sublist);
+
+        }
+    }
+    public void printZigZagOrderTraversal(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        TreeNode cur = root;
+        q.offer(cur);
+        while(!q.isEmpty()) {
+            List<Integer> sublist = new ArrayList<>();
+            int level = q.size();
+            if(level%2 !=0) {
+                for (int i = 1; i <= level; i++) {
+                    if (q.peek().getLeft() != null)
+                        q.offer(q.peek().getLeft());
+                    if (q.peek().getRight() != null)
+                        q.offer(q.peek().getRight());
+                    sublist.add(q.poll().getVal());
+                }
+                list.add(sublist);
+            }
+            else {
+                for (int i = 1; i <= level; i++) {
+                    if (q.peek().getRight() != null)
+                        q.offer(q.peek().getRight());
+                    if (q.peek().getLeft() != null)
+                        q.offer(q.peek().getLeft());
+                    sublist.add(q.poll().getVal());
+                }
+                list.add(sublist);
+            }
+        }
     }
 
 }
