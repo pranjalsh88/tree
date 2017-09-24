@@ -122,6 +122,7 @@ public class Tree{
             list.add(sublist);
 
         }
+        System.out.println(list);
     }
     public void printZigZagOrderTraversal(TreeNode root) {
         List<List<Integer>> list = new ArrayList<>();
@@ -152,6 +153,7 @@ public class Tree{
                 list.add(sublist);
             }
         }
+        System.out.println(list);
     }
 
 }
