@@ -21,5 +21,9 @@ public class Main {
         tree.printTree(treeNode, "preorder");
         tree.printTree(treeNode, "into");
         tree.printTree(treeNode, "postman");
+        System.out.println(tree.maxDepth(treeNode));
+        System.out.println(tree.maxPathSum(treeNode));
+        System.out.println(tree.pathSum(treeNode, 135));
+
     }
 }

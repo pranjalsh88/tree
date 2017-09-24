@@ -155,5 +155,49 @@ public class Tree{
         }
         System.out.println(list);
     }
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        return 1+ Math.max(maxDepth(root.getLeft()), maxDepth(root.getRight()));
+    }
+    public int maxPathSum(TreeNode root) {
+        if(root == null)
+            return 0;
+        return maxPathSum(root, 0);
+
+    }
+    public int maxPathSum(TreeNode root, int sum) {
+        if(root == null)
+            return 0;
+        return Math.max(maxPathSum(root.getLeft(), sum), maxPathSum(root.getRight(), sum))+root.getVal();
+    }
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(root == null)
+            return list;
+        pathSum(root, sum, list, new ArrayList<>());
+        return list;
+    }
+    public void pathSum(TreeNode root, int sum, List<List<Integer>> list, List<Integer> path) {
+        if(root == null)
+            return;
+        path.add(root.getVal());
+        //System.out.println(path);
+        if(root.getLeft() == null && root.getRight() == null) {
+            if (sum == root.getVal()) {
+                list.add(new ArrayList<>(path));
+                //System.out.println(list);
+            }
+            return;
+        }
+        if(root.getLeft() != null) {
+            pathSum(root.getLeft(), sum - root.getVal(), list, path);
+            //path.remove(path.size() - 1);
+        }
+        if(root.getRight() != null) {
+            pathSum(root.getRight(), sum - root.getVal(), list, path);
+            //path.remove(path.size() - 1);
+        }
+    }
 
 }
